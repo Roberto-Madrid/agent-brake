@@ -1,0 +1,13 @@
+uploads/
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+.coverage
+.token-police/
+*.sqlite3*
+*.db*
+.env*
+!examples/*.json

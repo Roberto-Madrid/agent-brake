@@ -1,0 +1,15 @@
+{
+  "name": "token-police",
+  "version": "0.3.0",
+  "description": "Deterministic agent usage accounting and bounded cost controls. No LLM calls for monitoring.",
+  "author": {
+    "name": "Roberto Madrid"
+  },
+  "license": "MIT",
+  "keywords": [
+    "agent-efficiency",
+    "cost-controls",
+    "usage-accounting"
+  ],
+  "repository": "https://github.com/Roberto-Madrid/token-police"
+}

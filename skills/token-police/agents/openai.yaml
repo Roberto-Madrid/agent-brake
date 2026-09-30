@@ -1,0 +1,4 @@
+interface:
+  display_name: "Token Police"
+  short_description: "Measure agent usage and apply deterministic cost controls"
+  default_prompt: "Use Token Police to inspect measured usage and the highest priority unresolved finding."

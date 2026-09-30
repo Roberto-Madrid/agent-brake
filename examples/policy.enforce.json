@@ -1,0 +1,10 @@
+{
+  "mode": "enforce",
+  "max_session_tool_calls": 200,
+  "read_lines": 200,
+  "grep_lines": 100,
+  "large_output_bytes": 32000,
+  "large_input_tokens": 50000,
+  "failure_alert_after": 3,
+  "repeat_success_after": null
+}

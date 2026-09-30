@@ -1,0 +1,11 @@
+{
+  "expected_uses": 20,
+  "saved_units_per_use": 1000,
+  "load_units_per_use": 100,
+  "build_units": 5000,
+  "maintenance_units": 1000,
+  "stable_workflow": true,
+  "needs_judgment": true,
+  "no_existing_fit": true,
+  "unit": "estimated_tokens"
+}

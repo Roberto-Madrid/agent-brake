@@ -1,0 +1,15 @@
+{
+  "name": "token-police-private",
+  "description": "Private distribution of Token Police usage accounting and local cost controls.",
+  "owner": {
+    "name": "Roberto Madrid"
+  },
+  "plugins": [
+    {
+      "name": "token-police",
+      "source": "./",
+      "description": "Deterministic agent usage accounting and bounded cost controls. No LLM calls for monitoring.",
+      "version": "0.3.0"
+    }
+  ]
+}

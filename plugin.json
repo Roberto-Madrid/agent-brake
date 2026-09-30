@@ -1,0 +1,42 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "token-police",
+  "version": "0.3.0",
+  "description": "Deterministic agent usage accounting and bounded cost controls. No LLM calls for monitoring.",
+  "author": {
+    "name": "Roberto Madrid"
+  },
+  "license": "MIT",
+  "keywords": [
+    "agent-efficiency",
+    "cost-controls",
+    "usage-accounting"
+  ],
+  "extensions": {
+    "com.openai": {
+      "hooks": "./hooks/codex.json",
+      "interface": {
+        "displayName": "Token Police",
+        "shortDescription": "Control agent usage and cost",
+        "developerName": "Roberto Madrid",
+        "category": "Productivity",
+        "longDescription": "Measure agent usage, inspect avoidable waste, and apply bounded local controls. Routine collection and hooks make zero model calls. Costs remain unknown until supplied or priced from explicit receipts. Requires Python 3.10+ and a supported local execution environment; hosted tools and unrelated model requests are outside hook coverage. Observe mode is the default.",
+        "logo": "./assets/logo.svg",
+        "composerIcon": "./assets/icon.svg",
+        "capabilities": [
+          "Import final usage receipts",
+          "Inspect usage and monitoring health",
+          "Review deterministic waste findings",
+          "Apply bounded output and read controls",
+          "Compare cost per accepted task"
+        ],
+        "defaultPrompt": [
+          "Inspect Token Police status and the highest priority finding.",
+          "Compare cost per accepted task for my pilot.",
+          "Check whether my usage evidence is complete."
+        ]
+      }
+    }
+  },
+  "repository": "https://github.com/Roberto-Madrid/token-police"
+}

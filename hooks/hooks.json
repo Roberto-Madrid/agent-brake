@@ -1,0 +1,68 @@
+{
+  "description": "Deterministic local checks. Observe by default; no model calls.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh\" hook --host claude",
+            "timeout": 5,
+            "shell": "bash"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh\" hook --host claude",
+            "timeout": 5,
+            "shell": "bash"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh\" hook --host claude",
+            "timeout": 5,
+            "shell": "bash"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh\" hook --host claude",
+            "timeout": 5,
+            "shell": "bash"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/launch.sh\" hook --host claude",
+            "timeout": 5,
+            "shell": "bash"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ]
+  }
+}

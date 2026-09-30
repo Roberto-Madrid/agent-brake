@@ -32,4 +32,3 @@ jobs:
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 claude plugin validate --strict .
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 claude plugin validate --strict .claude-plugin/plugin.json
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 -c 'python scripts/verify_hosts.py --claude claude'
-

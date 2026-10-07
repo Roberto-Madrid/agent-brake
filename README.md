@@ -2,11 +2,55 @@
 
 **A deterministic efficiency layer for agentic workflows: measure usage, spot repeated work across agents, and turn recurring procedures into reusable scripts and skills.**
 
-Formerly **Token Police**. The repository, Python package, plugin IDs, and `token-police` command retain their names for compatibility. `agentbrake` is the new CLI alias.
+Formerly **Token Police**. The repository is now `agent-brake`; the Python package, plugin IDs, and `token-police` command retain their names for compatibility. `agentbrake` is the new CLI alias.
 
 AgentBrake does not call an LLM, pick a model, or take over your agents. Your orchestrator owns the work. AgentBrake provides local accounting, bounded controls, and reusable procedures using Python 3.10+ and SQLite, with no runtime dependencies.
 
 **Status: v0.4 — local implementation, ready for demonstration; live multi-host effectiveness and billing savings still require a pilot.** No provider key is needed for the demo.
+
+## Where AgentBrake fits—and what it costs
+
+**AgentBrake monitors with scripts, not another always-running AI agent.** Scripts run when a connected hook or runner invokes them. Normal checks make no model calls; they use local CPU and storage.
+
+The diagram below shows the intended complete integration. **Automatic exception-to-investigator wake-up is still pending implementation.** Today, accounting, controls, explicit repetition tracking, and a manually invoked budgeted reviewer command are available.
+
+```mermaid
+flowchart TD
+    U["User requests an application"] --> O["Main agent coordinates the work"]
+    O --> B["Builder agent"]
+    B --> T["Testing agent"]
+    T --> R["Review agent"]
+    R --> F["Completed application"]
+
+    B -. "Usage and operation metadata" .-> W
+    T -. "Usage and operation metadata" .-> W
+    R -. "Usage and operation metadata" .-> W
+
+    subgraph AB["AgentBrake"]
+        W["Python monitoring scripts · zero model calls"]
+        W --> C{"Unusual cost or repeated failures?"}
+        C -->|"No"| L["Record locally and stop"]
+        C -->|"Yes"| G{"Review budget available and cooldown passed?"}
+        G -->|"No"| L
+        G -->|"Yes · automatic wake-up planned"| I["Optional AI investigation · bounded usage"]
+    end
+
+    I -->|"Focused recommendation"| O
+```
+
+Watch sits beside the working agents inside their runner/hooks. It checks structured usage, operation identifiers, and outcomes; it does not send every conversation through another LLM. Agents that are not connected do not become visible automatically.
+
+| Event | Monitoring action | Additional model usage |
+|---|---|---|
+| Normal agent step completes | Record metadata locally | No model call |
+| An operation fails repeatedly | Count repetitions and flag evidence | No model call |
+| Cost or retry threshold is crossed | Check policy, review allowance, and cooldown | No model call |
+| An optional investigation is dispatched | Give the chosen reviewer a bounded evidence packet | Consumes tokens or subscription usage |
+| The same exception recurs during cooldown | Record without another reviewer wake-up | No model call |
+
+**The normal monitoring path adds local computation and storage, not a continuous AI bill.** Any monitoring output placed into an agent's context can still consume input tokens. Optional investigations also consume usage, so they need their own allowance, bounded context/runtime, and cooldown. Expensive work is not automatically waste: judge it against the task's budget and progress.
+
+This architecture avoids always-on AI supervision costs; it **does not guarantee lower total cost**. Measure reviewer overhead against actual savings and keep script-only monitoring when investigation is not worthwhile. The main agent retains ownership of decisions and execution.
 
 ## The entire workflow
 

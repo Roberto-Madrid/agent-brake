@@ -72,3 +72,12 @@ class ReuseTests(unittest.TestCase):
         (Path(draft['path'])/'extra.py').write_text('unreviewed')
         with self.assertRaises(Invalid):
             reuse.draft(self.ledger,self.home,'p','s')
+
+    def test_generated_files_preserve_manifest_bytes(self):
+        self.seed()
+        draft = reuse.draft(self.ledger,self.home,'p','s')[0]
+        for name, body in reuse.package_files('secret-names', draft['id']).items():
+            actual = (Path(draft['path'])/name).read_bytes()
+            self.assertEqual(actual, body.encode('utf-8'))
+            self.assertNotIn(b'\r\n', actual)
+        self.assertEqual(reuse.state(self.ledger,self.home,draft['id'],'approved')['state'],'approved')

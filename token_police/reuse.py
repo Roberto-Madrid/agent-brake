@@ -141,7 +141,8 @@ def draft(ledger, home, project, scope, minimum=3):
                     for name,body in files.items():
                         dest = stage/name
                         dest.parent.mkdir(parents=True, exist_ok=True)
-                        dest.write_text(body, encoding='utf-8')
+                        # Preserve the exact UTF-8 bytes hashed in the manifest on every OS.
+                        dest.write_bytes(body.encode('utf-8'))
                     os.rename(stage, target)
             ledger.db.execute('INSERT INTO reuse_packages VALUES (?,?,?,?,?,?,?,?)',
                 (key,project,scope,candidate['operation'],candidate['operation_version'],'draft',canonical(manifest),time.time()))

@@ -66,8 +66,9 @@ class DistributionTests(unittest.TestCase):
                     bundle.extractall(target)
                 result = subprocess.run([sys.executable,str(target/'scripts/tp.py'),'--home',str(state/'ledger'),'doctor'],capture_output=True,text=True)
                 self.assertEqual(result.returncode,0,result.stderr)
-                self.assertEqual(json.loads(result.stdout)['version'],'0.3.0')
+                self.assertEqual(json.loads(result.stdout)['version'],'0.4.0')
 
 
 if __name__ == '__main__':
     unittest.main()
+

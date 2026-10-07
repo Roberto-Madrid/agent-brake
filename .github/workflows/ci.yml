@@ -17,6 +17,7 @@ jobs:
       - run: python -m unittest discover -s tests -v
       - run: python scripts/validate_package.py
       - run: python scripts/demo.py
+      - run: python scripts/demo_reuse.py
       - run: python scripts/build_release.py
       - uses: actions/upload-artifact@v4
         with:
@@ -32,3 +33,4 @@ jobs:
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 claude plugin validate --strict .
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 claude plugin validate --strict .claude-plugin/plugin.json
       - run: npx --yes --package @anthropic-ai/claude-code@2.1.285 -c 'python scripts/verify_hosts.py --claude claude'
+

@@ -10,3 +10,6 @@ Run the bundled `../../scripts/tp.py` from this skill directory, or locate `scri
 5. Apply only configured limits. Preserve native permissions. No polling, auditor agents, or automatic model wakes. A tool hook cannot see another bot's chats or profiles.
 Keep responses short. Do not mark a task accepted without the owner's evidence. For budgets and collection, read `../../docs/operations.md` only when a governed command is required.
 For reference pagination, continue with both `next_offset` and `next_byte_offset` until complete. Use `--force` after context loss when lifecycle hooks were unavailable.
+
+
+For cross-agent reuse, record explicit operation receipts with `activity-record`, then run `reuse-scan` and `reuse-draft` with the project and scope. Drafts use reviewed script templates; unknown operations need a reviewed recipe. Review hashes with `reuse-state --state approved` before host installation. See `../../docs/reuse.md`. Never skip required checks based on repetition.

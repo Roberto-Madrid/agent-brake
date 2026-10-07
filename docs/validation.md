@@ -49,3 +49,12 @@ The new tests cover OTel known-cost retention, unknown cache pricing, envelope a
 - Distribution tests build identical ZIPs twice and run doctor from each extracted archive.
 
 Native catalog/manifest validation does not prove live tool coverage or real savings. Remote CI results are recorded in GitHub Actions for this private repository.
+
+
+## 0.4.0 local verification — 2026-10-07
+
+- 102 unit tests passed, including new activity idempotency/conflicts, distinct-agent thresholds, scope/version/failure isolation, draft replay, tamper detection, retirement, unknown-operation handling, and interrupted-draft recovery.
+- Package invariants passed with 321 skill words.
+- Existing synthetic accounting demo passed; new synthetic cross-agent demo detected three successes across two agents and created a skill plus Python wrapper.
+- Reproducible archive checks ran as part of the unit suite.
+- Live provider calls, host installation, actual savings, and remote CI were not required or claimed for this pass.

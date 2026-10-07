@@ -121,8 +121,8 @@ def authorize(org, command):
     if org is None:
         return
     role = org['roles'].get(principal_name())
-    reads = {'doctor', 'status', 'report', 'reconcile', 'summary', 'compare', 'findings', 'coverage', 'rule-report', 'skill-report', 'audit-check', 'cache-report'}
-    admin = {'rule-register', 'rule-state', 'rule-evaluate', 'exception', 'retention'}
+    reads = {'reuse-scan', 'doctor', 'status', 'report', 'reconcile', 'summary', 'compare', 'findings', 'coverage', 'rule-report', 'skill-report', 'audit-check', 'cache-report'}
+    admin = {'reuse-state', 'rule-register', 'rule-state', 'rule-evaluate', 'exception', 'retention'}
     if role is None or role == 'viewer' and command not in reads or command in admin and role != 'admin':
         raise Invalid('operation denied by organization role')
     if command == 'reserve':
@@ -399,3 +399,4 @@ def skill_report(ledger, skill, version, idle_days=30):
     return dict(skill=skill,version=version,uses=len(uses),failures=sum(not v['success'] for v in uses),
                 estimated_net_microusd=net, idle=idle, causal_proof=False,
                 recommendation='review_for_retirement' if idle or net is not None and net <= 0 or any(not v['success'] for v in uses) else 'collect_evidence' if unknown else 'retain_for_monitoring')
+

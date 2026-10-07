@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "event_id": "run-42:filename-check:1",
+  "project_id": "demo",
+  "scope_id": "client-a",
+  "agent_id": "builder-1",
+  "task_id": "task-42",
+  "operation": "secret-names",
+  "operation_version": "1",
+  "input_fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "status": "success",
+  "evidence": "artifact:run-42:filename-check"
+}

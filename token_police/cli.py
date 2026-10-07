@@ -17,12 +17,12 @@ from . import governance as gov
 from .workflow import collect, review_run
 from .optimizations import read_reference, json_select, cache_report, retention
 from .reporting import status, ranked_findings, reconcile, pilot_report
-from . import __version__
+from . import __version__, reuse
 
 
 def parser():
-    p = argparse.ArgumentParser(prog="token-police")
-    p.add_argument("--home", default=os.environ.get("TOKEN_POLICE_HOME") or os.environ.get('PLUGIN_DATA')
+    p = argparse.ArgumentParser(prog="agentbrake")
+    p.add_argument("--home", default=os.environ.get("AGENTBRAKE_HOME") or os.environ.get("TOKEN_POLICE_HOME") or os.environ.get('PLUGIN_DATA')
                    or os.environ.get('CLAUDE_PLUGIN_DATA') or str(Path.home()/".token-police"))
     p.add_argument("--policy", default=os.environ.get("TOKEN_POLICE_POLICY"))
     p.add_argument('--org-policy', default=os.environ.get('TOKEN_POLICE_ORG_POLICY'))
@@ -147,6 +147,15 @@ def parser():
     s.add_argument('--project'); s.add_argument('--task')
     s = sub.add_parser('reconcile')
     s.add_argument('file'); s.add_argument('--workload',required=True); s.add_argument('--cohort',required=True)
+    sub.add_parser('activity-record', help='Record explicit cross-agent operation metadata').add_argument('file')
+    for command in ('reuse-scan', 'reuse-draft'):
+        s = sub.add_parser(command)
+        s.add_argument('--project', required=True)
+        s.add_argument('--scope', required=True)
+        s.add_argument('--minimum', type=int, default=3)
+    s = sub.add_parser('reuse-state')
+    s.add_argument('id')
+    s.add_argument('--state', choices=['approved', 'retired'], required=True)
     return p
 
 
@@ -173,7 +182,15 @@ def main(argv=None):
             gov.authorize(org, 'rule-evaluate')
         home = Path(args.home).resolve()
         ledger = Ledger(home / "ledger.sqlite3")
-        if args.cmd == "ingest":
+        if args.cmd == 'activity-record':
+            result = reuse.record(ledger, read_json(args.file))
+        elif args.cmd == 'reuse-scan':
+            result = reuse.scan(ledger, args.project, args.scope, args.minimum)
+        elif args.cmd == 'reuse-draft':
+            result = reuse.draft(ledger, home, args.project, args.scope, args.minimum)
+        elif args.cmd == 'reuse-state':
+            result = reuse.state(ledger, home, args.id, args.state)
+        elif args.cmd == "ingest":
             rates = read_json(args.rates) if args.rates else None
             result = ledger.ingest(args.file, normalizer(args.format, args.task, args.workload, args.cohort, args.actor, rates))
         elif args.cmd == "record":
@@ -313,3 +330,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -1,3 +1,10 @@
+# 0.4.0 — AgentBrake
+
+- Added model-neutral cross-agent activity receipts and scoped deterministic repetition discovery.
+- Added script-backed skill drafts, hash-verified approval, retirement, and a local demo.
+- Added agentbrake CLI alias; retained existing distribution/plugin IDs.
+- Rewrote README with workflow diagrams, researched design references, and explicit coverage limits.
+
 # Changelog
 
 ## 0.3.0 — 2026-09-30
@@ -32,3 +39,4 @@ Added governed workflow collection, project/governor budgets, rule lifecycle and
 Initial local pilot: immutable usage ledger, incremental import, provider receipt normalization, cache-aware explicit pricing, net-benefit estimates with quality/coverage gates, atomic reservations, silent hook accounting, optional dispatch/read limits, bounded output runner, skill payback calculator, dual plugin packaging, tests, and CI.
 
 Public submission, live host verification, and real savings results are pending.
+
